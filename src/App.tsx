@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 
-import { FiMapPin, FiUserPlus, FiAtSign  } from "react-icons/fi";
+import { FiMapPin, FiUserPlus, FiAtSign } from "react-icons/fi";
 import { CiCalendar } from "react-icons/ci";
 import { GoArrowRight, GoPlus } from "react-icons/go";
 import { IoMdSwitch, IoMdClose } from "react-icons/io";
@@ -8,6 +8,10 @@ import { IoMdSwitch, IoMdClose } from "react-icons/io";
 export function App() {
   const [isGuestsInputOpen, setIsGuestInputopen] = useState(false);
   const [isGuestsModalOpen, setIsGuestsModalOpen] = useState(false);
+  const [emailsToGuest, setEmailsToGuest] = useState([
+    'vinicius@mail.com'
+  ])
+
 
   function openGuestsInput() {
     setIsGuestInputopen(true);
@@ -23,6 +27,21 @@ export function App() {
 
   function closeGuestsModal() {
     setIsGuestsModalOpen(false);
+  }
+
+  function addNewEmailToEnvite(event: FormEvent<HTMLFormElement>) {
+    event.preventDefault();
+    
+    const data = new FormData(event.currentTarget);
+    const email: any = data.get('email');
+
+    if(emailsToGuest.includes(email)) {
+      return
+    }
+
+    setEmailsToGuest([...emailsToGuest, email]);
+
+    event.currentTarget.reset();
   }
 
 
@@ -96,33 +115,26 @@ export function App() {
               </div>
 
               <div className="flex flex-wrap gap-2">
-                <div className="py-1.5 px-2.5 rounded-md bg-zinc-800 flex items-center gap-2">
-                  <span>jessica.white44@yahoo.com</span>
-                  <button><IoMdClose className="size-4 text-zinc-400" /></button>
-                </div>
-
-                <div className="py-1.5 px-2.5 rounded-md bg-zinc-800 flex items-center gap-2">
-                  <span>jessica.white44@yahoo.com</span>
-                  <button><IoMdClose className="size-4 text-zinc-400" /></button>
-                </div>
-
-                <div className="py-1.5 px-2.5 rounded-md bg-zinc-800 flex items-center gap-2">
-                  <span>jessica.white44@yahoo.com</span>
-                  <button><IoMdClose className="size-4 text-zinc-400" /></button>
-                </div>
-                 
+                {
+                  emailsToGuest.map(email => (
+                    <div key={email} className="py-1.5 px-2.5 rounded-md bg-zinc-800 flex items-center gap-2">
+                      <span>{email}</span>
+                      <button><IoMdClose className="size-4 text-zinc-400" /></button>
+                    </div>
+                  ))
+                }
               </div>
 
               <div className="w-full h-px bg-zinc-800"></div>
 
-              <form className="p-2.5 bg-zinc-950 border border-zinc-800 rounded-lg flex items-center gap-2" >
-                
-                <FiAtSign className="size-4 text-zinc-400"/>
-                <input type="text" placeholder="Digite o e-mail do convidado" className="w-full bg-transparent text-lg placeholder-zinc-400 w-40 outline-none" />
+              <form onSubmit={addNewEmailToEnvite} className="p-2.5 bg-zinc-950 border border-zinc-800 rounded-lg flex items-center gap-2" >
+
+                <FiAtSign className="size-4 text-zinc-400" />
+                <input type="email" name='email' placeholder="Digite o e-mail do convidado" className="w-full bg-transparent text-lg placeholder-zinc-400 w-40 outline-none" />
 
                 <button className="w-[150px] bg-lime-300 text-lime-950 rounded-lg py-1.5 px-2 flex items-center justify-between hover:bg-lime-400">
                   <span>Convidar</span>
-                  <GoPlus  className="size-6 text-lime-950"/>
+                  <GoPlus className="size-6 text-lime-950" />
                 </button>
 
               </form>
