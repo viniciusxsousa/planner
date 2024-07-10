@@ -44,6 +44,12 @@ export function App() {
     event.currentTarget.reset();
   }
 
+  function removeGuestEmail(email: string) {
+    const listGuestUpdate = emailsToGuest.filter( guest =>  guest != email);
+
+    setEmailsToGuest(listGuestUpdate);
+  }
+
 
   return (
     <div className="h-screen flex items-center justify-center bg-patterns bg-no-repeat bg-center">
@@ -119,7 +125,7 @@ export function App() {
                   emailsToGuest.map(email => (
                     <div key={email} className="py-1.5 px-2.5 rounded-md bg-zinc-800 flex items-center gap-2">
                       <span>{email}</span>
-                      <button><IoMdClose className="size-4 text-zinc-400" /></button>
+                      <button onClick={ () => removeGuestEmail(email) }  ><IoMdClose className="size-4 text-zinc-400" /></button>
                     </div>
                   ))
                 }
