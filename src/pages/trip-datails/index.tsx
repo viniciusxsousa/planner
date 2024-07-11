@@ -8,6 +8,7 @@ import { CreateActiveModal } from "./create-active-modal";
 import { ImportLinks } from "./import-links";
 import { Guests } from "./guests";
 import { Actives } from "./actives";
+import { HeaderLocal } from "./header-local";
 
 
 export function TripDatailsPage() {
@@ -23,25 +24,7 @@ export function TripDatailsPage() {
 
     return (
         <div className="max-w-6xl px-6 py-10 mx-auto space-y-8">
-            <div className="px-4 h-16 rounded-xl bg-zinc-900 shadow-shape flex items-center justify-between">
-
-                <div className="flex items-center gap-2">
-                    <FiMapPin className="size-5 text-zinc-400" />
-                    <span className="text-lg text-zinc-100">Teresina, Brasil</span>
-                </div>
-
-                <div className="flex items-center gap-2">
-                    <CiCalendar className="size-5 text-zinc-400" />
-                    <span className="text-lg text-zinc-100">Teresina, Brasil</span>
-
-                    <div className="w-px h-6 bg-zinc-800" />
-
-                    <button className="bg-zinc-800 text-zinc-200 rounded-lg py-2 px-5 font-medium flex items-center gap-2 hover:bg-zinc-700">
-                        Alterar local/data
-                        <IoMdSwitch className="size-5" />
-                    </button>
-                </div>
-            </div>
+            <HeaderLocal />
 
             <main className="flex gap-16">
 
