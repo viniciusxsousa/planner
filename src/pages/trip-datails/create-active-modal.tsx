@@ -1,6 +1,7 @@
 import { FiTag } from "react-icons/fi";
 import { IoMdClose } from "react-icons/io";
 import { CiCalendar } from "react-icons/ci";
+import { Button } from "../../components/button";
 
 interface CreateActiveModalProps {
     closeCreateActiveModal: () => void,
@@ -33,10 +34,9 @@ export function CreateActiveModal({
                         <input type="datetime-local" name='time' placeholder="Qual a atividade?" className="w-full bg-transparent text-lg placeholder-zinc-400 w-40 outline-none" />
                     </div>
 
-
-                    <button className="w-full bg-lime-300 text-lime-950 rounded-lg py-1.5 px-2 flex items-center justify-center hover:bg-lime-400">
+                    <Button size="full" >
                         <span>Salvar atividade</span>
-                    </button>
+                    </Button>
 
                 </form>
             </div>

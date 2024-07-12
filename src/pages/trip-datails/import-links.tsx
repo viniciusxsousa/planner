@@ -1,5 +1,6 @@
 import { CiCalendar } from "react-icons/ci";
 import { IoMdLink } from "react-icons/io";
+import { Button } from "../../components/button";
 
 export function ImportLinks() {
     return (
@@ -16,10 +17,10 @@ export function ImportLinks() {
                 </div>
             </div>
 
-            <button className="w-full bg-zinc-800 text-zinc-200 rounded-lg py-2 px-5 font-medium flex items-center gap-2 justify-center hover:bg-zinc-700">
+            <Button variant="secondary" size="full" >
                 <CiCalendar className="size-5" />
                 Alterar local/data
-            </button>
+            </Button>
         </div>
     )
 }

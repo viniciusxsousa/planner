@@ -19,7 +19,7 @@ export function HeaderLocal() {
 
                 <div className="w-px h-6 bg-zinc-800" />
 
-                <Button varients="secondary">
+                <Button variant="secondary">
                     Alterar local/data
                     <IoMdSwitch className="size-5" />
                 </Button>

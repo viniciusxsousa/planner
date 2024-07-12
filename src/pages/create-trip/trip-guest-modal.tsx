@@ -3,6 +3,7 @@ import { FormEvent } from "react";
 import { IoMdClose } from "react-icons/io";
 import { FiAtSign } from "react-icons/fi";
 import { GoPlus } from "react-icons/go";
+import { Button } from "../../components/button";
 
 interface TripGuestModalProps {
     closeGuestsModal: () => void,
@@ -43,10 +44,10 @@ export function TripGuestModal(props: TripGuestModalProps) {
                 <FiAtSign className="size-4 text-zinc-400" />
                 <input type="email" name='email' placeholder="Digite o e-mail do convidado" className="w-full bg-transparent text-lg placeholder-zinc-400 w-40 outline-none" />
 
-                <button className="w-[150px] bg-lime-300 text-lime-950 rounded-lg py-1.5 px-2 flex items-center justify-between hover:bg-lime-400">
-                  <span>Convidar</span>
+                <Button>
+                  <span className="w-[90px]">Convidar</span>
                   <GoPlus className="size-6 text-lime-950" />
-                </button>
+                </Button>
 
               </form>
             </div>

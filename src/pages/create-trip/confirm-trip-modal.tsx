@@ -1,5 +1,6 @@
 import { IoMdClose } from "react-icons/io";
 import { CiUser, CiMail } from "react-icons/ci";
+import { Button } from "../../components/button";
 
 interface ConfirmTripModal {
     closeConfirmTravelModal: () => void,
@@ -35,9 +36,9 @@ export function ConfirmTripModal(props: ConfirmTripModal) {
 
                 </div>
 
-                <button onClick={props.createTrip} className="w-full bg-lime-300 text-lime-950 rounded-lg py-1.5 h-11 flex items-center justify-center hover:bg-lime-400">
+                <Button onClick={props.createTrip} size="full">
                   <span>Confirmar criação da viagem</span>
-                </button>
+                </Button>
 
               </form>
             </div>
