@@ -1,8 +1,14 @@
+import { useState } from "react";
+
 import { Button } from "../../../components/button";
+import { DateRange, DayPicker } from "react-day-picker"; 
+import { format } from "date-fns/format";
+
+import "react-day-picker/dist/style.css";
 
 import { FiMapPin } from "react-icons/fi";
 import { CiCalendar } from "react-icons/ci";
-import { IoMdSwitch } from "react-icons/io";
+import { IoMdClose, IoMdSwitch } from "react-icons/io";
 import { GoArrowRight } from "react-icons/go";
 
 interface DestinationAndDateProps {
@@ -19,6 +25,20 @@ export function DestinationAndDate({
   openGuestsInput
 }: DestinationAndDateProps) {
 
+  const [isDateSelectedOpen, setIsDateSelectedOpen] = useState(false);
+  const [eventStartAndEnd, setEventStartAndEnd] = useState<DateRange | undefined>();
+
+  const displayDate = eventStartAndEnd && eventStartAndEnd.from && eventStartAndEnd.to
+  ? format(eventStartAndEnd.from, 'd').concat(' até ').concat(format(eventStartAndEnd.to, "d 'de' LLL")) : null
+
+  function openDataSelected() {
+    setIsDateSelectedOpen(true);
+  }
+
+  function closeDataSelected() {
+    setIsDateSelectedOpen(false);
+  }
+
   return (
     <div className="h-16 bg-zinc-900 px-4 rounded-xl flex items-center shadow-shape gap-4">
       <div className="flex items-center gap-2 flex-1" >
@@ -26,10 +46,33 @@ export function DestinationAndDate({
         <input disabled={isGuestsInputOpen} type="text" placeholder="para onde você vai?" className="bg-transparent text-lg placeholder-zinc-400 outline-none" />
       </div>
 
-      <div className="flex gap-2 items-center">
+      <button onClick={openDataSelected} disabled={isGuestsInputOpen} className="flex gap-2 items-center" >
         <CiCalendar className="size-5 text-zinc-400" />
-        <input disabled={isGuestsInputOpen} type="text" placeholder="quando?" className="bg-transparent text-lg placeholder-zinc-400 w-40 outline-none" />
-      </div>
+        <span className="text-lg text-zinc-400 w-40 text-left">
+          { displayDate || 'Quando ?' }
+        </span>
+      </button>
+
+      {/* Modal para selecionar data */}
+      {
+        isDateSelectedOpen && (
+          <div className="fixed inset-0 bg-black/60 flex items-center justify-center" >
+            <div className="bg-zinc-900 rounded-xl py-5 px-6 shadow-shape space-y-5">
+
+              <div className="space-y-2">
+                <div className="flex justify-between items-center">
+                  <p className="text-lg font-semibold" >Selecione a data</p>
+                  <button onClick={closeDataSelected} ><IoMdClose className="size-6" /></button>
+                </div>
+                
+              </div>
+
+              <DayPicker mode="range" selected={eventStartAndEnd}  onSelect={setEventStartAndEnd}/>
+
+            </div>
+          </div>
+        )
+      }
 
       <div className="w-px h-6 bg-zinc-800" />
 
@@ -40,7 +83,7 @@ export function DestinationAndDate({
         </Button>
       ) : (
         <Button onClick={openGuestsInput}>
-           Continuar
+          Continuar
           <GoArrowRight className="size-5" />
         </Button>
       )}
