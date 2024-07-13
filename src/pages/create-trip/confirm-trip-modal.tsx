@@ -50,7 +50,7 @@ export function ConfirmTripModal(props: ConfirmTripModal) {
 
                 </div>
 
-                <Button onClick={props.createTrip} size="full">
+                <Button type="button" onClick={props.createTrip} size="full">
                   <span>Confirmar criação da viagem</span>
                 </Button>
 

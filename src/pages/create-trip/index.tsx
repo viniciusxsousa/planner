@@ -1,6 +1,8 @@
 import { FormEvent, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
+import { api } from "../../api/api";
+
 import { TripGuestModal } from "./trip-guest-modal";
 import { ConfirmTripModal } from "./confirm-trip-modal";
 import { DestinationAndDate } from "./steps/destination-and-date";
@@ -15,7 +17,7 @@ export function CreateTripPage() {
 
   const [destination, setDestination] = useState('');
   const [owenerName, setOwenerName] = useState('');
-  const [owenerEmail, setOwenerEmail] = useState('');  
+  const [owenerEmail, setOwenerEmail] = useState('');
   const [eventStartAndEnd, setEventStartAndEnd] = useState<DateRange | undefined>();
 
   const navigate = useNavigate();
@@ -66,10 +68,35 @@ export function CreateTripPage() {
     setEmailsToGuest(listGuestUpdate);
   }
 
-  function createTrip() {
-    
+  async function createTrip() {
 
-    navigate('/details/123');
+    if(!destination) {
+      alert('O campo de destino deve ser informado.');
+      return
+    }
+
+    if(!eventStartAndEnd?.from && !eventStartAndEnd?.to) {
+      alert('A data inicial e final deve ser informada.');
+    }
+
+    if(!owenerEmail && !owenerName) {
+      alert('Os seus dados devem ser preenchidos.')
+      return
+    }
+
+
+     const response: any = await api.post('/trips', {
+      destination,
+      starts_at: eventStartAndEnd?.from,
+      ends_at: eventStartAndEnd?.to,
+      emails_to_invite: emailsToGuest,
+      owner_name: owenerName,
+      owner_email: owenerEmail
+    }); 
+
+    const { tripId } = response.data;
+
+    navigate(`/details/${tripId}`); 
   }
 
 
@@ -84,9 +111,9 @@ export function CreateTripPage() {
 
         <div className="space-y-4">
 
-          <DestinationAndDate 
-            closeGuestInput={closeGuestInput} 
-            isGuestsInputOpen={isGuestsInputOpen} 
+          <DestinationAndDate
+            closeGuestInput={closeGuestInput}
+            isGuestsInputOpen={isGuestsInputOpen}
             openGuestsInput={openGuestsInput}
             setDestination={setDestination}
             setEventStartAndEnd={setEventStartAndEnd}
@@ -94,7 +121,7 @@ export function CreateTripPage() {
           />
 
           {isGuestsInputOpen && (
-            <InviteGuest 
+            <InviteGuest
               emailsToGuest={emailsToGuest}
               openConfirmTravelModal={openConfirmTravelModal}
               openGuestsModal={openGuestsModal}
@@ -108,18 +135,18 @@ export function CreateTripPage() {
 
       {
         isGuestsModalOpen && (
-          <TripGuestModal 
-            closeGuestsModal={closeGuestsModal} 
+          <TripGuestModal
+            closeGuestsModal={closeGuestsModal}
             emailsToGuest={emailsToGuest}
             removeGuestEmail={removeGuestEmail}
             addNewEmailToEnvite={addNewEmailToEnvite}
-            />
+          />
         )
       }
 
       {
         isConfirmTravelModalOpen && (
-          <ConfirmTripModal 
+          <ConfirmTripModal
             closeConfirmTravelModal={closeConfirmTravelModal}
             createTrip={createTrip}
             setOwenerName={setOwenerName}
