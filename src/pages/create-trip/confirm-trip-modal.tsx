@@ -4,7 +4,9 @@ import { Button } from "../../components/button";
 
 interface ConfirmTripModal {
     closeConfirmTravelModal: () => void,
-    createTrip: () => void
+    createTrip: () => void,
+    setOwenerName: (name: string) => void,
+    setOwenerEmail: (email: string) => void
 }
 
 export function ConfirmTripModal(props: ConfirmTripModal) {
@@ -25,14 +27,26 @@ export function ConfirmTripModal(props: ConfirmTripModal) {
                 <div className="py-2.5 px-4 bg-zinc-950 border border-zinc-800 rounded-lg flex items-center gap-2">
 
                   <CiUser className="size-5 text-zinc-100" />
-                  <input type="text" name='name' placeholder="Seu nome completo" className="w-full bg-transparent text-lg placeholder-zinc-400 w-40 outline-none" />
+                  <input 
+                    type="text" 
+                    name='name' 
+                    placeholder="Seu nome completo" 
+                    className="w-full bg-transparent text-lg placeholder-zinc-400 w-40 outline-none" 
+                    onChange={event => props.setOwenerName(event.target.value)}
+                  />
 
                 </div>
 
                 <div className="py-2.5 px-4 bg-zinc-950 border border-zinc-800 rounded-lg flex items-center gap-2">
 
                   <CiMail className="size-5 text-zinc-100" />
-                  <input type="email" name='email' placeholder="Seu e-mail pessoal" className="w-full bg-transparent text-lg placeholder-zinc-400 w-40 outline-none" />
+                  <input 
+                    type="email" 
+                    name='email' 
+                    placeholder="Seu e-mail pessoal" 
+                    className="w-full bg-transparent text-lg placeholder-zinc-400 w-40 outline-none" 
+                    onChange={event => props.setOwenerEmail(event.target.value)}
+                  />
 
                 </div>
 

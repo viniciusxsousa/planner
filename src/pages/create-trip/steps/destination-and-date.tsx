@@ -12,9 +12,12 @@ import { IoMdClose, IoMdSwitch } from "react-icons/io";
 import { GoArrowRight } from "react-icons/go";
 
 interface DestinationAndDateProps {
-  isGuestsInputOpen: boolean,
-  closeGuestInput: () => void,
+  isGuestsInputOpen: boolean
+  eventStartAndEnd: DateRange | undefined
+  closeGuestInput: () => void
   openGuestsInput: () => void
+  setDestination: (destination: string) => void
+  setEventStartAndEnd: (date: DateRange | undefined) => void
 }
 
 
@@ -22,11 +25,13 @@ interface DestinationAndDateProps {
 export function DestinationAndDate({
   isGuestsInputOpen,
   closeGuestInput,
-  openGuestsInput
+  openGuestsInput,
+  setDestination,
+  setEventStartAndEnd,
+  eventStartAndEnd
 }: DestinationAndDateProps) {
 
   const [isDateSelectedOpen, setIsDateSelectedOpen] = useState(false);
-  const [eventStartAndEnd, setEventStartAndEnd] = useState<DateRange | undefined>();
 
   const displayDate = eventStartAndEnd && eventStartAndEnd.from && eventStartAndEnd.to
   ? format(eventStartAndEnd.from, "d 'de' LLL").concat(' até ').concat(format(eventStartAndEnd.to, "d 'de' LLL")) : null
@@ -43,7 +48,13 @@ export function DestinationAndDate({
     <div className="h-16 bg-zinc-900 px-4 rounded-xl flex items-center shadow-shape gap-4">
       <div className="flex items-center gap-2 flex-1" >
         <FiMapPin className="size-5 text-zinc-400" />
-        <input disabled={isGuestsInputOpen} type="text" placeholder="para onde você vai?" className="bg-transparent text-lg placeholder-zinc-400 outline-none" />
+        <input 
+          disabled={isGuestsInputOpen} 
+          type="text" 
+          placeholder="para onde você vai?" 
+          className="bg-transparent text-lg placeholder-zinc-400 outline-none"
+          onChange={event => setDestination(event.target.value)}
+          />
       </div>
 
       <button onClick={openDataSelected} disabled={isGuestsInputOpen} className="flex gap-2 items-center w-[250px]" >
