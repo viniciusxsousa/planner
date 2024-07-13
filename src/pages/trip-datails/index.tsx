@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
 
-import { FiMapPin, FiPlus } from "react-icons/fi";
-import { IoMdSwitch, IoIosCheckmarkCircleOutline} from "react-icons/io";
-import { CiCalendar } from "react-icons/ci";
+import { api } from "../../api/api";
+
+import { FiPlus } from "react-icons/fi";
 
 import { CreateActiveModal } from "./create-active-modal";
 import { ImportLinks } from "./import-links";
@@ -10,9 +11,32 @@ import { Guests } from "./guests";
 import { Actives } from "./actives";
 import { HeaderLocal } from "./header-local";
 
+interface Trip {
+    id: string
+    destination: string,
+    ends_at: string,
+    starts_at: string,
+    is_confirmed: boolean
+}
+
 
 export function TripDatailsPage() {
     const [isCreateActiveModalOpen, setIsCreateActiveModalOpen] = useState(false);
+    const [trip, setTrip] = useState<Trip>();
+
+    const {idTrip} = useParams();
+
+    async function getTrip() {
+        const response = await api.get(`/trips/${idTrip}`);
+        console.log(response.data.trip);
+        setTrip(response.data.trip);
+    }
+
+    useEffect(() => {
+
+        getTrip();
+
+    }, [])
 
     function openCreateActiveModal() {
         setIsCreateActiveModalOpen(true);
