@@ -29,7 +29,7 @@ export function DestinationAndDate({
   const [eventStartAndEnd, setEventStartAndEnd] = useState<DateRange | undefined>();
 
   const displayDate = eventStartAndEnd && eventStartAndEnd.from && eventStartAndEnd.to
-  ? format(eventStartAndEnd.from, 'd').concat(' até ').concat(format(eventStartAndEnd.to, "d 'de' LLL")) : null
+  ? format(eventStartAndEnd.from, "d 'de' LLL").concat(' até ').concat(format(eventStartAndEnd.to, "d 'de' LLL")) : null
 
   function openDataSelected() {
     setIsDateSelectedOpen(true);
@@ -46,9 +46,9 @@ export function DestinationAndDate({
         <input disabled={isGuestsInputOpen} type="text" placeholder="para onde você vai?" className="bg-transparent text-lg placeholder-zinc-400 outline-none" />
       </div>
 
-      <button onClick={openDataSelected} disabled={isGuestsInputOpen} className="flex gap-2 items-center" >
+      <button onClick={openDataSelected} disabled={isGuestsInputOpen} className="flex gap-2 items-center w-[250px]" >
         <CiCalendar className="size-5 text-zinc-400" />
-        <span className="text-lg text-zinc-400 w-40 text-left">
+        <span className="text-lg text-zinc-400 w-40 text-left flex-1">
           { displayDate || 'Quando ?' }
         </span>
       </button>
@@ -64,7 +64,6 @@ export function DestinationAndDate({
                   <p className="text-lg font-semibold" >Selecione a data</p>
                   <button onClick={closeDataSelected} ><IoMdClose className="size-6" /></button>
                 </div>
-                
               </div>
 
               <DayPicker mode="range" selected={eventStartAndEnd}  onSelect={setEventStartAndEnd}/>
