@@ -37,10 +37,10 @@ export function Guests() {
 
             </div>
 
-            {participants?.map(participant => (
-                <div className="flex items-center justify-between gap-4">
+            {participants?.map( (participant, index) => (
+                <div key={participant.id} className="flex items-center justify-between gap-4">
                     <div className="space-y-1.5">
-                        <span className="block flex-1 font-medium text-zinc-100">{participant.name}</span>
+                        <span className="block flex-1 font-medium text-zinc-100">{participant.name ?? `Convidados ${index}`}</span>
                         <span className="block truncate text-sm text-zinc-400">{participant.email}</span>
                     </div>
                     {participant.isConfirmed ? (<FaRegCheckCircle className="size-5 text-lime-300" />) : (<MdOutlineRadioButtonUnchecked className="size-5 text-zinc-400" />)}
