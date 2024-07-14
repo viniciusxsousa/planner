@@ -22,7 +22,7 @@ interface Trip {
 
 export function TripDatailsPage() {
     const [isCreateActiveModalOpen, setIsCreateActiveModalOpen] = useState(false);
-    const [trip, setTrip] = useState<Trip>();
+    const [trip, setTrip] = useState<Trip | undefined >();
 
     const {idTrip} = useParams();
 
@@ -48,7 +48,7 @@ export function TripDatailsPage() {
 
     return (
         <div className="max-w-6xl px-6 py-10 mx-auto space-y-8">
-            <HeaderLocal />
+            <HeaderLocal trip={trip} />
 
             <main className="flex gap-16">
 
