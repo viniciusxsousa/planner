@@ -26,9 +26,9 @@ export function CreateActiveModal({
         const title =  date.get('title');
         const time = date.get('time');
 
-        const response = await api.post(`/trips/${idTrip}/activities`, {title, 'occurs_at': time});
+        await api.post(`/trips/${idTrip}/activities`, {title, 'occurs_at': time});
 
-        console.log(response);
+        closeCreateActiveModal();
     }
 
     return (
