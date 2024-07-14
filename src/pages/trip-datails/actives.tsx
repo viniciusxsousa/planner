@@ -1,6 +1,35 @@
+import { api } from "../../api/api";
+
+import { useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+
 import { IoIosCheckmarkCircleOutline } from "react-icons/io";
 
+interface Actives {
+    date: string
+    activities: {
+        id: string
+        title: string
+        occurs_at: string
+    }[]
+}
+
+
 export function Actives() {
+    const [ actives, setActives ] = useState< Actives[] | undefined >();
+
+    const {idTrip} = useParams();
+
+    async function getActives() {
+        const response = await api.get(`/trips/${idTrip}/activities`);
+
+        setActives(response.data.activities);
+    }
+
+    useEffect(() => {
+        getActives();
+    }, []);
+
     return (
         <div className="space-y-8">
             <div className="space-y-2.5" >
