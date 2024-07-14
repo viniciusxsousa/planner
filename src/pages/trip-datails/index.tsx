@@ -28,7 +28,6 @@ export function TripDatailsPage() {
 
     async function getTrip() {
         const response = await api.get(`/trips/${idTrip}`);
-        console.log(response.data.trip);
         setTrip(response.data.trip);
     }
 
