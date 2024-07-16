@@ -4,7 +4,8 @@ Planner é um projeto desenvolvido com React, criado para servir como um organiz
 
 ### :arrow_forward: Rodando o projeto
 
-Primeiro você deve configurar a api, que está no seguinte repositório xxxxx. Após configurar a API, siga os passos a baixo:
+Primeiro você deve configurar a api, [clicando aqui](https://github.com/viniciusxsousa/planner-api).  
+Após configurar a API, siga os passos a baixo:
 
 1. Faça o clone desse repositório.
 2. Rode o comando `npm install`, para instalar as libs.
@@ -23,3 +24,7 @@ Primeiro você deve configurar a api, que está no seguinte repositório xxxxx. 
 
 
 ### :desktop_computer: Previa
+
+
+https://github.com/user-attachments/assets/3dc69132-a8e8-4398-927e-bfaf11c21cc9
+
